@@ -7,7 +7,8 @@ $(document).ready(function(){
 		var timeout;
 		var gravity = 0.3;
 		var bounce = 0.7;
-		var friction = 0.7;
+		var collide = 0.1;
+		var friction = 0.5;
 		var groundFriction = 0.9;
 		var mouseX;
 		var mouseY; 
@@ -71,6 +72,35 @@ $(document).ready(function(){
 				if(count[i].x < 0 + count[i].r){
 					count[i].vx *= -bounce;
 					count[i].x = 0 + count[i].r;
+				}
+			}
+
+			checkDistance(count[0],count[1]);
+			checkDistance(count[0],count[2]);
+			checkDistance(count[1],count[2]);
+
+			function checkDistance(ballA, ballB){
+				var dx = ballA.x - ballB.x;
+				var dy = ballA.y - ballB.y;
+				var dist = Math.sqrt(dx * dx + dy * dy);
+				var minDist = ballA.r + ballB.r
+
+				if(dist < minDist){
+					console.log("collision 0-1");
+					var angle = Math.atan2(dx,dy);
+					var tarX0 = ballA.x + Math.cos(angle) ;
+					var tarY0 = ballA.y + Math.cos(angle) ;
+					var tarX1 = ballB.x + Math.cos(angle) ;
+					var tarY1 = ballB.y + Math.cos(angle) ;
+					var ax0 = (tarX0 - ballB.x) * collide;
+					var ay0 = (tarY0 - ballB.y) * collide;
+					var ax1 = (tarX1 - ballA.x) * collide;
+					var ay1 = (tarY1 - ballA.y) * collide;
+					ballA.vx += ax0;
+					ballA.vy += ay0;
+					ballB.vx += ax1;
+					ballB.vy += ay1;
+					
 				}
 			}
 
