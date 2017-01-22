@@ -1,4 +1,4 @@
-$(document).ready(function(){
+	$(document).ready(function(){
 
 		var cvs = $("canvas").get(0);
 		var ctx = cvs.getContext("2d");
@@ -83,7 +83,7 @@ $(document).ready(function(){
 				var dx = ballA.x - ballB.x;
 				var dy = ballA.y - ballB.y;
 				var dist = Math.sqrt(dx * dx + dy * dy);
-				var minDist = ballA.r + ballB.r
+				var minDist = ballA.r + ballB.r;
 
 				if(dist < minDist){
 					var angle = Math.atan2(dx,dy);
@@ -128,11 +128,12 @@ $(document).ready(function(){
 					dy = mouseY - count[i].y;
 
 					count[i].vx += dx*gravity*0.5;
-					count[i].vy += dy*gravity*0.5;
+					count[i].vy += dy*gravity*0.5; 
 
 					count[i].vx *= friction;
 					count[i].vy *= friction;
 				}
+				count[0].vy += dy*gravity*0.1;
 			}, 60);
 		});
 
