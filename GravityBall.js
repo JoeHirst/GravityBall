@@ -1,10 +1,3 @@
-<html>
-<head>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>	
-
-	<script>
-
 	$(document).ready(function(){
 
 		var cvs = $("canvas").get(0);
@@ -112,19 +105,3 @@
 		init();
 
 	});
-
-
-</script>
-
-</head>
-
-
-<body>
-
-	<canvas width="400" height="400" id="canvas" style="border: solid black 1px">
-		Sorry, no canvas support!
-	</canvas>
-
-</body>
-
-</html>
