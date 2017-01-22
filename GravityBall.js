@@ -1,4 +1,4 @@
-	$(document).ready(function(){
+$(document).ready(function(){
 
 		var cvs = $("canvas").get(0);
 		var ctx = cvs.getContext("2d");
@@ -7,24 +7,33 @@
 		var timeout;
 		var gravity = 0.3;
 		var bounce = 0.7;
-		var friction = 0.75;
+		var friction = 0.7;
+		var groundFriction = 0.9;
 		var mouseX;
 		var mouseY; 
 		var dx;
 		var dy;
+		var count = [];
+		var r = 20;
 
 		function init(){
 
-			sphere = {
-				x: w/2,
-				y: 50,
-				r: 20,
-				vx: 0,
-				vy: 0
-			};
+			count.length = 3;
+
+			for(var i = 0; i < count.length; i++){
+				count[i] = new sphere(Math.random()*w, Math.random()*h, r, 0, 0);
+			}
 
 			draw();
 		}
+
+		var sphere = function(x, y, r, vx, vy) {
+			this.x=x;
+			this.y =y;
+			this.r = r;
+			this.vx = vx;
+			this.vy = vy;
+		};
 
 		function draw(){
 
@@ -38,29 +47,31 @@
 
 		function updateSphere(){
 
-			sphere.vy += gravity;
-			sphere.x += sphere.vx;
-			sphere.y += sphere.vy;
+			for(var i = 0; i < count.length; i++){
+				count[i].vy += gravity;
+				count[i].x += count[i].vx;
+				count[i].y += count[i].vy;
 
-			if(sphere.y >= h - sphere.r){
-				sphere.vy *= -bounce;
-				sphere.y =h-sphere.r;
-				
-			}
+				if(count[i].y >= h - count[i].r){
+					count[i].vy *= -bounce;
+					count[i].y =h-count[i].r;
+					count[i].vx *= groundFriction;
+				}
 
-			if(sphere.y < 0 + sphere.r){
-				sphere.vy *= -bounce;
-				sphere.y = 0 + sphere.r;
-			}	
+				if(count[i].y < 0 + count[i].r){
+					count[i].vy *= -bounce;
+					count[i].y = 0 + count[i].r;
+				}	
 
-			if(sphere.x > w - sphere.r){
-				sphere.vx *= -bounce;
-				sphere.x = w - sphere.r;
-			}
+				if(count[i].x > w - count[i].r){
+					count[i].vx *= -bounce;
+					count[i].x = w - count[i].r;
+				}
 
-			if(sphere.x < 0 + sphere.r){
-				sphere.vx *= -bounce;
-				sphere.x = 0 + sphere.r;
+				if(count[i].x < 0 + count[i].r){
+					count[i].vx *= -bounce;
+					count[i].x = 0 + count[i].r;
+				}
 			}
 
 		}
@@ -68,9 +79,11 @@
 		function drawSphere(){
 			ctx.fillStyle = "grey";
 			ctx.strokeStyle = "black";
-			ctx.beginPath();
-			ctx.arc(sphere.x,sphere.y, sphere.r, 0, 2*Math.PI);
-			ctx.fill();
+			for(var i = 0; i < count.length; i++){
+				ctx.beginPath();
+				ctx.arc(count[i].x,count[i].y, count[i].r, 0, 2*Math.PI);
+				ctx.fill();
+			}
 		}
 		
 		$("canvas").mousemove(function(e){
@@ -81,16 +94,17 @@
 
 		$("canvas").mousedown(function(e){
 			timeout = setInterval(function(){
-				dx = mouseX - sphere.x;
-				dy = mouseY - sphere.y;
+				for(var i = 0; i < count.length; i++){
+					dx = mouseX - count[i].x;
+					dy = mouseY - count[i].y;
 
-				sphere.vx += dx*gravity;
-				sphere.vy += dy*gravity; 
+					count[i].vx += dx*gravity;
+					count[i].vy += dy*gravity; 
 
-				sphere.vx *= friction;
-				sphere.vy *= friction;
+					count[i].vx *= friction;
+					count[i].vy *= friction;
+				}
 			}, 60);
-			
 		});
 
 		$("canvas").mouseup(function(e){
