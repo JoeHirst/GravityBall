@@ -86,7 +86,6 @@ $(document).ready(function(){
 				var minDist = ballA.r + ballB.r
 
 				if(dist < minDist){
-					console.log("collision 0-1");
 					var angle = Math.atan2(dx,dy);
 					var ballANewX = ballA.x + Math.cos(angle);
 					var ballANewY = ballA.y + Math.cos(angle);
