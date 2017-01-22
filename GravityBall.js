@@ -127,8 +127,8 @@ $(document).ready(function(){
 					dx = mouseX - count[i].x;
 					dy = mouseY - count[i].y;
 
-					count[i].vx += dx*gravity;
-					count[i].vy += dy*gravity; 
+					count[i].vx += dx*gravity*0.5;
+					count[i].vy += dy*gravity*0.5;
 
 					count[i].vx *= friction;
 					count[i].vy *= friction;
