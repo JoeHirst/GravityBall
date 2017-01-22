@@ -88,18 +88,18 @@ $(document).ready(function(){
 				if(dist < minDist){
 					console.log("collision 0-1");
 					var angle = Math.atan2(dx,dy);
-					var tarX0 = ballA.x + Math.cos(angle) ;
-					var tarY0 = ballA.y + Math.cos(angle) ;
-					var tarX1 = ballB.x + Math.cos(angle) ;
-					var tarY1 = ballB.y + Math.cos(angle) ;
-					var ax0 = (tarX0 - ballB.x) * collide;
-					var ay0 = (tarY0 - ballB.y) * collide;
-					var ax1 = (tarX1 - ballA.x) * collide;
-					var ay1 = (tarY1 - ballA.y) * collide;
-					ballA.vx += ax0;
-					ballA.vy += ay0;
-					ballB.vx += ax1;
-					ballB.vy += ay1;
+					var ballANewX = ballA.x + Math.cos(angle);
+					var ballANewY = ballA.y + Math.cos(angle);
+					var ballBNewX = ballB.x + Math.cos(angle);
+					var ballBNewY = ballB.y + Math.cos(angle);
+					var accelXA = (ballANewX - ballB.x) * collide;
+					var accelYA = (ballANewY - ballB.y) * collide;
+					var accelXB = (ballBNewX - ballA.x) * collide;
+					var accelYB = (ballBNewY - ballA.y) * collide;
+					ballA.vx += accelXA;
+					ballA.vy += accelYA;
+					ballB.vx += accelXB;
+					ballB.vy += accelYB;
 					
 				}
 			}
