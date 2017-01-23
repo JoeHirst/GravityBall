@@ -59,17 +59,17 @@
 					count[i].vx *= groundFriction;
 				}
 
-				if(count[i].y < 0 + count[i].r){
+				if(count[i].y <= 0 + count[i].r){
 					count[i].vy *= -bounce;
 					count[i].y = 0 + count[i].r;
 				}	
 
-				if(count[i].x > w - count[i].r){
+				if(count[i].x >= w - count[i].r){
 					count[i].vx *= -bounce;
 					count[i].x = w - count[i].r;
 				}
 
-				if(count[i].x < 0 + count[i].r){
+				if(count[i].x <= 0 + count[i].r){
 					count[i].vx *= -bounce;
 					count[i].x = 0 + count[i].r;
 				}
@@ -85,7 +85,7 @@
 				var dist = Math.sqrt(dx * dx + dy * dy);
 				var minDist = ballA.r + ballB.r;
 
-				if(dist < minDist){
+				if(dist <= minDist){
 					var angle = Math.atan2(dx,dy);
 					var ballANewX = ballA.x + Math.cos(angle);
 					var ballANewY = ballA.y + Math.cos(angle);
